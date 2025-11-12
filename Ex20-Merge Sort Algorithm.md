@@ -1,48 +1,79 @@
-# Ex15 Value Existence Check in a TreeMap
+# Ex20 Sorting an Array using Merge Sort Algorithm
 
 ## DATE:
 11.11.2025  
 
 ## AIM:
-To write a Java program that checks whether a given value exists in a TreeMap.
+To design a program that sorts a given array of integers in ascending order without using built-in sorting functions, achieving O(n log n) time complexity and minimal space usage.
 
 ## Algorithm
 1. Start the program.  
-2. Create a `TreeMap` and insert key–value pairs.  
-3. Use the `containsValue()` method to check if a specific value exists in the map.  
-4. Display whether the value is found or not.  
-5. Stop the program.  
+2. Divide the array into two halves using recursion.  
+3. Continue dividing until each subarray contains a single element.  
+4. Merge the subarrays in sorted order using a helper merge function.  
+5. Return the fully sorted array.  
+6. Display the sorted array.  
 
 ## Program:
 ```java
 /*
-Program to check whether a given value exists in a TreeMap.
+Program to sort a given array of integers in ascending order without using built-in sorting functions
 Developed by: Selshiya F
 RegisterNumber: 212224060241
 */
 import java.util.*;
 
-public class TreeMapValueCheck {
+public class MergeSort {
+    public static void merge(int arr[], int left, int mid, int right) {
+        int n1 = mid - left + 1;
+        int n2 = right - mid;
+
+        int L[] = new int[n1];
+        int R[] = new int[n2];
+
+        for (int i = 0; i < n1; ++i)
+            L[i] = arr[left + i];
+        for (int j = 0; j < n2; ++j)
+            R[j] = arr[mid + 1 + j];
+
+        int i = 0, j = 0, k = left;
+        while (i < n1 && j < n2) {
+            if (L[i] <= R[j])
+                arr[k++] = L[i++];
+            else
+                arr[k++] = R[j++];
+        }
+        while (i < n1)
+            arr[k++] = L[i++];
+        while (j < n2)
+            arr[k++] = R[j++];
+    }
+
+    public static void sort(int arr[], int left, int right) {
+        if (left < right) {
+            int mid = (left + right) / 2;
+            sort(arr, left, mid);
+            sort(arr, mid + 1, right);
+            merge(arr, left, mid, right);
+        }
+    }
+
     public static void main(String[] args) {
-        TreeMap<Integer, String> map = new TreeMap<>();
-        map.put(1, "Apple");
-        map.put(2, "Banana");
-        map.put(3, "Cherry");
-        map.put(4, "Mango");
-
-        System.out.println("TreeMap: " + map);
-        String valueToCheck = "Banana";
-
-        if (map.containsValue(valueToCheck))
-            System.out.println("The value '" + valueToCheck + "' exists in the TreeMap.");
-        else
-            System.out.println("The value '" + valueToCheck + "' does not exist in the TreeMap.");
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter number of elements: ");
+        int n = sc.nextInt();
+        int arr[] = new int[n];
+        System.out.println("Enter the elements:");
+        for (int i = 0; i < n; i++)
+            arr[i] = sc.nextInt();
+        sort(arr, 0, n - 1);
+        System.out.println("Sorted array: " + Arrays.toString(arr));
+        sc.close();
     }
 }
 ```
-
-## OUIPUT
-<img width="940" height="83" alt="image" src="https://github.com/user-attachments/assets/e585fc8c-6505-4803-8863-ecefe234ea15" />
+## OUTPUT
+<img width="940" height="145" alt="image" src="https://github.com/user-attachments/assets/0b994f37-8350-4b21-9b9d-f17f695ac98e" />
 
 ## RESULT
-Thus, the program successfully checks whether a specified value exists in a TreeMap using the containsValue() method.
+The program has been successfully implemented and executed.
