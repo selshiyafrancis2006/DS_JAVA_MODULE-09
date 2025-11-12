@@ -1,45 +1,61 @@
-# Ex11 Convert HashSet to ArrayList in Java
+# Ex16 Check for Balanced Parentheses Using Stack
 
 ## DATE:
 11.11.2025  
 
 ## AIM:
-To convert a collection of distinct integers stored in a HashSet into an ArrayList and display its contents.
+To write a Java program that verifies whether the parentheses (brackets) in an input string are balanced — meaning each opening bracket (, {, [ has a corresponding and correctly ordered closing bracket ), }, ].
 
 ## Algorithm
 1. Start the program.  
-2. Create a `HashSet` and add distinct integer elements to it.  
-3. Use the `ArrayList` constructor to convert the `HashSet` into an `ArrayList`.  
-4. Display the elements of both the `HashSet` and the `ArrayList`.  
-5. Stop the program.  
+2. Create an empty stack.  
+3. Traverse each character in the string.  
+4. Push opening brackets onto the stack.  
+5. When a closing bracket is encountered, check if it matches the top of the stack.  
+6. If any mismatch or leftover element exists, the parentheses are not balanced.  
+7. If the stack is empty at the end, the parentheses are balanced.  
 
 ## Program:
 ```java
 /*
-Program to convert a collection of distinct integers stored in a HashSet into an ArrayList and display its contents.
+Program to verify whether the parentheses (brackets) in an input string are balanced
 Developed by: Selshiya F
 RegisterNumber: 212224060241
 */
 import java.util.*;
 
-public class HashSetToArrayList {
+public class BalancedParentheses {
+    public static boolean isBalanced(String str) {
+        Stack<Character> stack = new Stack<>();
+        for (char ch : str.toCharArray()) {
+            if (ch == '(' || ch == '{' || ch == '[') {
+                stack.push(ch);
+            } else if (ch == ')' || ch == '}' || ch == ']') {
+                if (stack.isEmpty()) return false;
+                char top = stack.pop();
+                if ((ch == ')' && top != '(') ||
+                    (ch == '}' && top != '{') ||
+                    (ch == ']' && top != '['))
+                    return false;
+            }
+        }
+        return stack.isEmpty();
+    }
+
     public static void main(String[] args) {
-        HashSet<Integer> set = new HashSet<>();
-        set.add(10);
-        set.add(20);
-        set.add(30);
-        set.add(40);
-        set.add(50);
-
-        System.out.println("HashSet: " + set);
-
-        ArrayList<Integer> list = new ArrayList<>(set);
-        System.out.println("ArrayList: " + list);
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter expression: ");
+        String expr = sc.nextLine();
+        if (isBalanced(expr))
+            System.out.println("Balanced");
+        else
+            System.out.println("Not Balanced");
+        sc.close();
     }
 }
 ```
 ## OUTPUT 
-<img width="946" height="94" alt="image" src="https://github.com/user-attachments/assets/647e442e-033d-4082-aea2-db80a1d86e16" />
+<img width="950" height="93" alt="image" src="https://github.com/user-attachments/assets/353eb46e-654a-4d9d-9861-f94d885d80a8" />
 
 ## RESULT
-The program successfully converts a collection of distinct integers stored in a HashSet into an ArrayList.
+Thus, the program correctly checks whether an input string has balanced parentheses using a stack.
