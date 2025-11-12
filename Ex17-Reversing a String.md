@@ -1,42 +1,48 @@
-# Ex12 Add Elements from an Array into a TreeSet
+# Ex17 Reversing a String Using Stack Data Structure
 
 ## DATE:
 11.11.2025  
 
 ## AIM:
-To write a Java program that adds elements from an array into a TreeSet and displays the elements in sorted order.
+To write a Java program that reverses an input string using a stack, without using built-in reverse functions.
 
 ## Algorithm
 1. Start the program.  
-2. Initialize an array with integer elements.  
-3. Create an empty `TreeSet`.  
-4. Add all elements from the array into the `TreeSet`.  
-5. Display the elements of the `TreeSet` (which are automatically sorted).  
+2. Create an empty stack of characters.  
+3. Traverse the string and push each character onto the stack.  
+4. Pop each element from the stack and append it to a new string.  
+5. Display the reversed string.  
 6. Stop the program.  
 
 ## Program:
 ```java
 /*
-Program that adds elements from an array into a TreeSet and displays the elements in sorted order.
+Program to reverse an input string using a stack
 Developed by: Selshiya F
 RegisterNumber: 212224060241
 */
 import java.util.*;
 
-public class ArrayToTreeSet {
+public class ReverseStringStack {
     public static void main(String[] args) {
-        Integer[] arr = {50, 20, 40, 10, 30};
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a string: ");
+        String str = sc.nextLine();
+        Stack<Character> stack = new Stack<>();
+        for (char ch : str.toCharArray())
+            stack.push(ch);
 
-        TreeSet<Integer> set = new TreeSet<>(Arrays.asList(arr));
+        StringBuilder reversed = new StringBuilder();
+        while (!stack.isEmpty())
+            reversed.append(stack.pop());
 
-        System.out.println("Array elements: " + Arrays.toString(arr));
-        System.out.println("TreeSet elements (sorted): " + set);
+        System.out.println("Reversed string: " + reversed.toString());
+        sc.close();
     }
 }
-
 ```
-## OUTPUT 
-<img width="925" height="78" alt="image" src="https://github.com/user-attachments/assets/22d8f7fe-02ed-49a6-8a2f-9e819ed1eaaf" />
+## OUTPUT
+<img width="943" height="88" alt="image" src="https://github.com/user-attachments/assets/95e7e65b-68e6-46eb-9baf-880924d43be9" />
 
 ## RESULT
-The program successfully adds elements from an array into a TreeSet and displays them in sorted order.
+Thus, the program successfully reverses the given string using a stack without relying on built-in reverse functions.
