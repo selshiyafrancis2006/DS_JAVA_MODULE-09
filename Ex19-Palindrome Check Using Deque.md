@@ -1,50 +1,59 @@
-# Ex14 Tracking the First Unique Number in a Stream using LinkedHashMap
+# Ex19 Palindrome Check Using Deque
 
 ## DATE:
 11.11.2025  
 
 ## AIM:
-To implement a program that tracks the first unique (non-repeating) number in a stream of integers using a LinkedHashMap.
+To design a program that checks whether a given message is a palindrome by removing all non-alphanumeric characters, converting all characters to lowercase, and using a deque data structure for comparison.
 
 ## Algorithm
 1. Start the program.  
-2. Create a `LinkedHashMap` to store numbers and their frequency counts.  
-3. For each incoming number in the stream:  
-   - Increment its count in the map.  
-4. Iterate through the map to find the first number with a count of 1.  
-5. Display the first unique number.  
-6. Stop the program.  
+2. Read the input string from the user.  
+3. Remove all non-alphanumeric characters and convert the string to lowercase.  
+4. Use a deque to store characters of the string.  
+5. Compare characters from both ends of the deque.  
+6. If all pairs match, it’s a palindrome; otherwise, it’s not.  
+7. Display the result.  
 
 ## Program:
 ```java
 /*
-Program to track the first unique (non-repeating) number in a stream of integers using a LinkedHashMap.
+Program to check whether a given message is a palindrome by removing all non-alphanumeric characters.
 Developed by: Selshiya F
 RegisterNumber: 212224060241
 */
 import java.util.*;
 
-public class FirstUniqueTracker {
-    public static void main(String[] args) {
-        int[] stream = {4, 5, 4, 5, 3, 2, 1};
-        LinkedHashMap<Integer, Integer> map = new LinkedHashMap<>();
-
-        for (int num : stream)
-            map.put(num, map.getOrDefault(num, 0) + 1);
-
-        System.out.println("Stream: " + Arrays.toString(stream));
-        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-            if (entry.getValue() == 1) {
-                System.out.println("First unique number: " + entry.getKey());
-                return;
+public class PalindromeDeque {
+    public static boolean isPalindrome(String str) {
+        Deque<Character> deque = new LinkedList<>();
+        for (char c : str.toCharArray()) {
+            if (Character.isLetterOrDigit(c)) {
+                deque.add(Character.toLowerCase(c));
             }
         }
-        System.out.println("No unique number found.");
+
+        while (deque.size() > 1) {
+            if (deque.removeFirst() != deque.removeLast())
+                return false;
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a message: ");
+        String message = sc.nextLine();
+        if (isPalindrome(message))
+            System.out.println("Palindrome");
+        else
+            System.out.println("Not a Palindrome");
+        sc.close();
     }
 }
 ```
 ## OUTPUT
-<img width="936" height="90" alt="image" src="https://github.com/user-attachments/assets/76de0264-f97f-4409-b58b-edeec11b670a" />
+<img width="951" height="84" alt="image" src="https://github.com/user-attachments/assets/f2b651f4-310f-47eb-90dc-7394b64e0602" />
 
 ## RESULT
-The program successfully tracks and returns the first unique number at any point in the integer stream using a LinkedHashMap.
+The program successfully removes all non-alphanumeric characters, converts the text to lowercase, and uses a deque to efficiently compare characters from both ends. Hence, it determines whether the string is a palindrome.
